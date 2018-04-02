@@ -29,7 +29,7 @@ def _max_column_sizes(field_names, table_rows):
             for field_name, column in zip(field_names, columns)}
 
 
-def import_from_txt(filename_or_fobj, encoding='utf-8', *args, **kwargs):
+def import_from_txt(filename_or_fobj, encoding='utf-8', maxrows=None, *args, **kwargs):
     # TODO: should be able to change DASH, PLUS and PIPE
     filename, fobj = get_filename_and_fobj(filename_or_fobj, mode='rb')
     contents = fobj.read().decode(encoding).strip().splitlines()
@@ -38,7 +38,12 @@ def import_from_txt(filename_or_fobj, encoding='utf-8', *args, **kwargs):
     contents = contents[1:-1]
     del contents[1]
 
-    table_rows = [[value.strip() for value in row.split(PIPE)[1:-1]]
+    if maxrows:
+        maxrows=None,
+    else:
+        maxrows = -1
+
+    table_rows = [[value.strip() for value in row.split(PIPE)[1:maxrows]]
                   for row in contents]
     meta = {'imported_from': 'txt',
             'filename': filename,

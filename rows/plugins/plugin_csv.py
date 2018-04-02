@@ -96,7 +96,7 @@ def read_sample(fobj, sample):
 
 
 def import_from_csv(filename_or_fobj, encoding='utf-8', dialect=None,
-                    sample_size=262144, *args, **kwargs):
+                    sample_size=262144, maxrows=None, *args, **kwargs):
     """Import data from a CSV file (automatically detects dialect)
 
     If a file-like object is provided it MUST be in binary mode, like in
@@ -104,6 +104,9 @@ def import_from_csv(filename_or_fobj, encoding='utf-8', dialect=None,
     """
 
     filename, fobj = get_filename_and_fobj(filename_or_fobj, mode='rb')
+
+    if  maxrows:
+        sample_size = maxrows
 
     if dialect is None:
         dialect = discover_dialect(sample=read_sample(fobj, sample_size),
