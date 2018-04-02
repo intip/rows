@@ -35,6 +35,8 @@ def slug(text, separator='_', permitted_chars=SLUG_CHARS,
     '''
 
     text = text or ''
+    if not text:
+        return ''
 
     # Strip non-ASCII characters
     # Example: u' ÁLVARO  justen% ' -> ' ALVARO  justen% '
