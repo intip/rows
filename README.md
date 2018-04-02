@@ -1,4 +1,5 @@
 # rows
+#altera para permitir ler so o header
 
 [![Join the chat at https://gitter.im/turicas/rows](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/turicas/rows?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Current version at PyPI](https://img.shields.io/pypi/v/rows.svg)](https://pypi.python.org/pypi/rows)
