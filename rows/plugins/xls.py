@@ -134,7 +134,7 @@ def cell_value(sheet, row, col):
 
 
 def import_from_xls(filename_or_fobj, sheet_name=None, sheet_index=0,
-                    start_row=0, start_column=0, *args, **kwargs):
+                    start_row=0, start_column=0, maxrows=None, *args, **kwargs):
 
     filename, _ = get_filename_and_fobj(filename_or_fobj, mode='rb')
     book = xlrd.open_workbook(filename, formatting_info=True)
@@ -145,9 +145,11 @@ def import_from_xls(filename_or_fobj, sheet_name=None, sheet_index=0,
     # TODO: may re-use Excel data types
 
     # Get header and rows
+    if not maxrows:
+        maxrows = sheet.nrows
     table_rows = [[cell_value(sheet, row_index, column_index)
                    for column_index in range(start_column, sheet.ncols)]
-                  for row_index in range(start_row, sheet.nrows)]
+                  for row_index in range(start_row, maxrows)]
 
     meta = {'imported_from': 'xls',
             'filename': filename,
