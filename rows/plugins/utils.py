@@ -131,7 +131,7 @@ def make_header(field_names, permit_not=False):
 
 def create_table(data, meta=None, fields=None, skip_header=True,
                  import_fields=None, samples=None, force_types=None,
-                 *args, **kwargs):
+                 maxrows=None, *args, **kwargs):
     # TODO: add auto_detect_types=True parameter
     table_rows = iter(data)
     sample_rows = []
@@ -143,6 +143,8 @@ def create_table(data, meta=None, fields=None, skip_header=True,
             sample_rows = list(islice(table_rows, 0, samples))
         else:
             sample_rows = list(table_rows)
+        if maxrows:
+            sample_rows = list(table_rows)[0:maxrows]
 
         fields = detect_types(header, sample_rows, *args, **kwargs)
 

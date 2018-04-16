@@ -117,7 +117,7 @@ def import_from_csv(filename_or_fobj, encoding='utf-8', dialect=None,
     meta = {'imported_from': 'csv',
             'filename': filename,
             'encoding': encoding,}
-    return create_table(reader, meta=meta, *args, **kwargs)
+    return create_table(reader, meta=meta, maxrows=maxrows, *args, **kwargs)
 
 
 def export_to_csv(table, filename_or_fobj=None, encoding='utf-8',
