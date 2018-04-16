@@ -111,6 +111,12 @@ def make_header(field_names, permit_not=False):
 
     slug_chars = SLUG_CHARS if not permit_not else SLUG_CHARS + '^'
 
+    _field_names = field_names[0]
+    if _field_names.find(';') > 0:
+        # pode ter um erro que gerou um parser errado
+        # ex [u'NR_CPF;NOME;DATA DE NASCIMENTO;SEXO;NOME DA M\u039fE;ENDERECO - LOGRADOURO;ENDERECO - NUMERO;ENDERECO - COMPLEMENTO;ENDERECO - BAIRRO;ENDERECO -
+        field_names = _field_names.split(';')
+
     header = [slug(field_name, permitted_chars=slug_chars)
               for field_name in field_names]
     result = []
